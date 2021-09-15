@@ -11,5 +11,5 @@ variable "EC2_USER" {
 }
 
 variable "AMI" {
-  default = "ami-0cfc05f17eac80275"
+  default = "ami-00dfe2c7ce89a450b"
 }
