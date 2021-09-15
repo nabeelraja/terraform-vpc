@@ -100,7 +100,7 @@ resource "aws_launch_configuration" "web-lc" {
 
 # Create auto scaling group
 resource "aws_autoscaling_group" "web-asg" {
-  availability_zones = ["us-east-1"]
+  availability_zones = ["us-east-1a"]
   max_size = 1
   min_size = 1
   desired_capacity = 1
