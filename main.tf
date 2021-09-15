@@ -143,7 +143,7 @@ resource "aws_instance" "web" {
     }
 
     connection {
-        host = "3.19.158.104"
+        host = self.public_ip
         user = "${var.EC2_USER}"
         type = "ssh"
         private_key = "${file("${var.PRIVATE_KEY_PATH}")}"
