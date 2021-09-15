@@ -31,7 +31,7 @@ resource "aws_instance" "web1" {
     }
 }
 
-resource "aws_key_pair" "london-region-key-pair" {
-    key_name = "london-region-key-pair"
+resource "aws_key_pair" "key-pair" {
+    key_name = "rsa"
     public_key = "${file(var.PUBLIC_KEY_PATH)}"
 }
