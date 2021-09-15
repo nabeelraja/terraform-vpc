@@ -1,6 +1,6 @@
 resource "aws_instance" "web1" {
 
-    ami = "${lookup(var.AMI, var.AWS_REGION)}"
+    ami = "${var.AMI}"
     instance_type = "t2.micro"
 
     # VPC
