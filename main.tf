@@ -87,27 +87,31 @@ resource "aws_elb" "web-elb" {
 
 }
 
-# # Create launch configuration
-# resource "aws_launch_configuration" "web-lc" {
-#   name_prefix = "web-"
-#   image_id = "${var.AMI}"
-#   instance_type = "t2.micro"
-#   # Security group
-#   security_groups = ["${aws_security_group.default.id}"]
-#   user_data = "${file("userdata.sh")}"
-#   key_name = "${var.PRIVATE_KEY_PATH}"
-# }
+# Create launch configuration
+resource "aws_launch_configuration" "web-lc" {
+  image_id = "${var.AMI}"
+  instance_type = "t2.micro"
+  # Security group
+  security_groups = ["${aws_security_group.default.id}"]
+  user_data = "${file("userdata.sh")}"
+  key_name = "${var.PRIVATE_KEY_PATH}"
+}
 
-# # Create auto scaling group
-# resource "aws_autoscaling_group" "web-asg" {
-#   availability_zones = ["us-east-1a"]
-#   max_size = 1
-#   min_size = 1
-#   desired_capacity = 1
-#   force_delete = true
-#   launch_configuration = "${aws_launch_configuration.web-lc.id}"
-#   load_balancers = ["${aws_elb.web-elb.id}"]
-# }
+# Create auto scaling group
+resource "aws_autoscaling_group" "web-asg" {
+  availability_zones = ["us-east-1a"]
+  max_size = 1
+  min_size = 1
+  desired_capacity = 1
+  force_delete = true
+  launch_configuration = "${aws_launch_configuration.web-lc.id}"
+  load_balancers = ["${aws_elb.web-elb.id}"]
+  tag {
+    key = "Name"
+    value = "web-asg"
+    propagate_at_launch = "true"
+  }
+}
 
 resource "aws_key_pair" "auth" {
   key_name = "rsa"
