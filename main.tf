@@ -94,7 +94,7 @@ resource "aws_launch_configuration" "web-lc" {
   image_id = "${var.AMI}"
   instance_type = "t2.micro"
   # Security group
-  security_groups = ["${aws_security_group.elb.id}"]
+  security_groups = ["${aws_security_group.allow-ssh-http.id}"]
   user_data = "${file("userdata.sh")}"
   key_name = "${var.PRIVATE_KEY_PATH}"
 }
@@ -143,7 +143,9 @@ resource "aws_instance" "web" {
     }
 
     connection {
+        host = "3.19.158.104"
         user = "${var.EC2_USER}"
+        type = "ssh"
         private_key = "${file("${var.PRIVATE_KEY_PATH}")}"
     }
 }
